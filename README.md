@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PHMC Privilege Admin — Demo Prototype
 
-## Getting Started
+Clickable **web admin demo** for the PHMC loyalty program. UI, navigation, and in-memory mock data only — no hospital systems connection.
 
-First, run the development server:
+## Run locally
 
 ```bash
+cd apps/phmc-loyalty-admin-demo-prototype
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open **http://localhost:3000** (Next.js default port).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For production-style URLs locally, set `NEXT_PUBLIC_BASE_PATH=/demo/phmc-privilege-admin` in `.env.local` (see `.env.example`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy to Vercel
 
-## Learn More
+See **[docs/VERCEL-DEPLOY.md](../../docs/VERCEL-DEPLOY.md)** — includes `portfolio-handrian` custom-domain linking at `/demo/phmc-privilege-admin`.
 
-To learn more about Next.js, take a look at the following resources:
+## Demo accounts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Email | Password | Role |
+|-------|----------|------|
+| `admin@phmc.demo` | `demo123` | Super Admin |
+| `marketing@phmc.demo` | `demo123` | Marketing |
+| `support@phmc.demo` | `demo123` | Support L1 |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Any other non-empty credentials also sign in as Super Admin (demo convenience).
 
-## Deploy on Vercel
+## Phase 1 scope (implemented)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Login portal
+- Admin shell (sidebar, header, demo banner)
+- Dashboard (score cards, charts, CSV export)
+- News (list, create, edit, delete)
+- Vouchers (list, filter by status, CRUD, bulk pause)
+- Benefits (privileges, perks, tiers)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Shared mock data
+
+Seed fixtures live in `packages/demo-data/`. The mobile app does **not** read this package yet — reserved for future cross-app sync.
+
+## Limitations
+
+- Mock data stored in browser memory + `localStorage`
+- No real RBAC, SSO, HIS, or backend APIs
+- Post-MVP modules (Partnerships, Marketing campaigner) are not included
