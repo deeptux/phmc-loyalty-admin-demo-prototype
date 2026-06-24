@@ -47,7 +47,7 @@ export default function LoginPage() {
             />
             <div>
               <p className="text-xl font-extrabold">PHMC Privilege Admin</p>
-              <p className="text-sm text-white/85">Perpetual Help Medical Center — Las Piñas</p>
+              <p className="text-sm text-white/85">Perpetual Help Medical Center - Las Piñas</p>
             </div>
           </div>
           <div>
@@ -55,7 +55,7 @@ export default function LoginPage() {
               Committed to excellence in member care
             </p>
             <p className="mt-3 max-w-md text-sm text-white/90">
-              Demo admin portal aligned with the PHMC Privilege mobile experience — trust-first,
+              Demo admin portal aligned with the PHMC Privilege mobile experience - trust-first,
               care-forward, stakeholder-ready.
             </p>
           </div>
@@ -73,7 +73,7 @@ export default function LoginPage() {
               className="mb-2 h-auto w-12 object-contain lg:hidden"
             />
             <Card.Title className="text-2xl text-phmc-primary">Sign in</Card.Title>
-            <Card.Description>PHMC Privilege Admin — demo prototype</Card.Description>
+            <Card.Description>PHMC Privilege Admin - demo prototype</Card.Description>
           </Card.Header>
           <Card.Content>
             <form className="space-y-4" onSubmit={onSubmit}>

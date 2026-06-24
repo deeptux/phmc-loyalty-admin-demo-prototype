@@ -20,7 +20,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@phmc/demo-data": ["../../../packages/demo-data/src/index.ts"]
+      "@phmc/demo-data": ["./packages/demo-data/src/index.ts"]
     }
   },
   "include": [

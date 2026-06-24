@@ -2,7 +2,7 @@
 @import "@heroui/styles";
 
 :root {
-  /* PHMC institutional green — aligned with phmc.com.ph & privacy notice */
+  /* PHMC institutional green - aligned with phmc.com.ph & privacy notice */
   --phmc-primary: #006837;
   --phmc-primary-dark: #004d28;
   --phmc-primary-light: #208b7d;
@@ -16,7 +16,7 @@
   --phmc-warning: #f9a825;
   --phmc-danger: #c62828;
 
-  /* HeroUI primary/accent — replaces default blue */
+  /* HeroUI primary/accent - replaces default blue */
   --accent: var(--phmc-primary);
   --accent-foreground: #ffffff;
 }

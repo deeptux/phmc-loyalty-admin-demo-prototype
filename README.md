@@ -1,6 +1,6 @@
-# PHMC Privilege Admin — Demo Prototype
+# PHMC Privilege Admin - Demo Prototype
 
-Clickable **web admin demo** for the PHMC loyalty program. UI, navigation, and in-memory mock data only — no hospital systems connection.
+Clickable **web admin demo** for the PHMC loyalty program. UI, navigation, and in-memory mock data only - no hospital systems connection.
 
 ## Run locally
 
@@ -16,7 +16,7 @@ For production-style URLs locally, set `NEXT_PUBLIC_BASE_PATH=/demo/phmc-privile
 
 ## Deploy to Vercel
 
-See **[docs/VERCEL-DEPLOY.md](../../docs/VERCEL-DEPLOY.md)** — includes `portfolio-handrian` custom-domain linking at `/demo/phmc-privilege-admin`.
+See **[docs/VERCEL-DEPLOY.md](../../docs/VERCEL-DEPLOY.md)** - includes `portfolio-handrian` custom-domain linking at `/demo/phmc-privilege-admin`.
 
 ## Demo accounts
 
@@ -39,7 +39,7 @@ Any other non-empty credentials also sign in as Super Admin (demo convenience).
 
 ## Shared mock data
 
-Seed fixtures live in `packages/demo-data/`. The mobile app does **not** read this package yet — reserved for future cross-app sync.
+Seed fixtures live in `packages/demo-data/` (vendored in this repo for Vercel deploy).
 
 ## Limitations
 

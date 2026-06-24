@@ -9,7 +9,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "PHMC Privilege Admin — Demo",
+  title: "PHMC Privilege Admin - Demo",
   description: "PHMC loyalty web admin demo prototype (mock data only)",
 };
 
