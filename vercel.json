@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "installCommand": "npm install",
-  "buildCommand": "npm run build",
+  "buildCommand": "NEXT_PUBLIC_BASE_PATH=/demo/phmc-privilege-admin npm run build",
   "env": {
     "NEXT_PUBLIC_BASE_PATH": "/demo/phmc-privilege-admin"
   }
