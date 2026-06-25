@@ -1,6 +1,7 @@
 import type { AdminRole } from "@phmc/demo-data";
 import type { ComponentType, SVGProps } from "react";
 import {
+  BoltIcon,
   ChartBarSquareIcon,
   GiftIcon,
   NewspaperIcon,
@@ -52,6 +53,8 @@ export const adminNav: NavItem[] = [
       { href: "/benefits/privileges", label: "Privileges", icon: SparklesIcon },
       { href: "/benefits/perks", label: "Perks", icon: GiftIcon },
       { href: "/benefits/tiers", label: "Tiers", icon: ChartBarSquareIcon },
+      { href: "/benefits/engagement", label: "Engagement", icon: BoltIcon },
+      { href: "/benefits/tier-requests", label: "Tier requests", icon: UserGroupIcon },
     ],
   },
 ];

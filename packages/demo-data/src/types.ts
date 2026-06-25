@@ -42,6 +42,8 @@ export type PrivilegeBlock = {
   heading: string;
   body: string;
   order: number;
+  /** HTTPS URL, /public path, or data URL from demo upload */
+  infographicImage?: string;
 };
 
 export type Perk = {
@@ -50,6 +52,8 @@ export type Perk = {
   partner: string;
   description: string;
   active: boolean;
+  enrollments: number;
+  redemptions: number;
 };
 
 export type MembershipTier = {
@@ -58,6 +62,72 @@ export type MembershipTier = {
   minPoints: number;
   benefits: string[];
   order: number;
+  memberCount: number;
+  version: number;
+  effectiveFrom: string;
+};
+
+export type EngagementProgramStatus = "draft" | "active" | "paused" | "ended";
+
+export type EngagementProgram = {
+  id: string;
+  title: string;
+  description: string;
+  pointsPerCompletion: number;
+  budgetCap: number;
+  pointsIssued: number;
+  completions: number;
+  status: EngagementProgramStatus;
+  startsAt: string;
+  endsAt: string;
+  updatedAt: string;
+};
+
+export type PerkActivationStatus = "enrolled" | "redeemed" | "expired";
+
+export type PerkActivation = {
+  id: string;
+  perkId: string;
+  perkTitle: string;
+  memberId: string;
+  memberName: string;
+  memberNumber: string;
+  status: PerkActivationStatus;
+  activatedAt: string;
+};
+
+export type TierUpgradeStatus = "pending" | "approved" | "denied";
+
+export type TierUpgradeRequest = {
+  id: string;
+  memberId: string;
+  memberName: string;
+  memberNumber: string;
+  currentTier: MemberTier;
+  requestedTier: MemberTier;
+  status: TierUpgradeStatus;
+  pointsAtRequest: number;
+  requestedAt: string;
+  reviewedAt?: string;
+  reviewedBy?: string;
+  reviewNote?: string;
+};
+
+export type BenefitActivityType =
+  | "perk_activation"
+  | "tier_request"
+  | "tier_approved"
+  | "tier_denied"
+  | "engagement_completion"
+  | "privileges_published"
+  | "tier_published";
+
+export type BenefitActivity = {
+  id: string;
+  type: BenefitActivityType;
+  summary: string;
+  actor?: string;
+  occurredAt: string;
 };
 
 export type DashboardMetrics = {
