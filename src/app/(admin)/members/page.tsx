@@ -194,7 +194,10 @@ export default function MembersPage() {
                 <div className="min-w-0">
                   <p className="font-bold text-phmc-text">Program insights</p>
                   <p className="text-xs text-phmc-text-muted">
-                    Scorecards, tier mix, and enrollment trend [EXPAND TO SEE ANALYTICS]
+                    Scorecards, tier mix, and enrollment trend{" "}
+                    <span className="text-sm font-bold text-phmc-danger">
+                      [EXPAND TO SEE ANALYTICS]
+                    </span>
                   </p>
                 </div>
               </div>
