@@ -1,5 +1,7 @@
 import type { NewsStatus } from "@phmc/demo-data";
-import { BASE_PATH } from "@/lib/base-path";
+import { publicAsset } from "@/lib/public-asset";
+
+export { publicAsset };
 
 export type NewsBannerPreset = {
   id: string;
@@ -53,9 +55,4 @@ export function resolveNewsBannerTint(
   status: NewsStatus
 ): string {
   return bannerTint ?? NEWS_STATUS_TINTS[status];
-}
-
-export function publicAsset(path: string): string {
-  if (path.startsWith("data:") || path.startsWith("http")) return path;
-  return `${BASE_PATH}${path}`;
 }

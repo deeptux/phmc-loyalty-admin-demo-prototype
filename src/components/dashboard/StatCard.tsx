@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { ComponentType, SVGProps } from "react";
+import { publicAsset } from "@/lib/public-asset";
 
 type Props = {
   label: string;
@@ -17,7 +18,7 @@ export function StatCard({ label, value, icon: Icon, image, tint, href }: Props)
     <>
       <div
         className="absolute inset-0 bg-cover bg-center transition group-hover:scale-105"
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${publicAsset(image)})` }}
         aria-hidden
       />
       <div className="absolute inset-0" style={{ backgroundColor: tint }} aria-hidden />

@@ -9,6 +9,7 @@ import {
   NEWS_BANNER_PRESETS,
   NEWS_STATUS_TINTS,
 } from "@/lib/news-banners";
+import { publicAsset } from "@/lib/public-asset";
 
 type Values = Omit<NewsItem, "id" | "updatedAt">;
 
@@ -146,7 +147,7 @@ export function NewsForm({ initial, onSubmit, onCancel }: Props) {
               >
                 <span
                   className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${preset.image})` }}
+                  style={{ backgroundImage: `url(${publicAsset(preset.image)})` }}
                   aria-hidden
                 />
                 <span
