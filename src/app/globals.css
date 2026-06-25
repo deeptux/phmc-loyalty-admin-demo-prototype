@@ -61,3 +61,18 @@ body {
 .markdown-preview strong {
   font-weight: 700;
 }
+
+@keyframes privilege-editor-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.privilege-editor-enter {
+  animation: privilege-editor-enter 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}

@@ -33,7 +33,7 @@ export function DataTable<T>({ data, columns, pageSize = 8, onRowClick }: Props<
             {table.getHeaderGroups().map((hg) => (
               <tr key={hg.id}>
                 {hg.headers.map((header) => (
-                  <th key={header.id} className="px-4 py-3 font-semibold">
+                  <th key={header.id} className="px-3 py-3 font-semibold sm:px-4">
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
@@ -52,7 +52,7 @@ export function DataTable<T>({ data, columns, pageSize = 8, onRowClick }: Props<
                 onClick={() => onRowClick?.(row.original)}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-4 py-3 align-middle">
+          <td key={cell.id} className="px-3 py-3 align-middle sm:px-4">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
@@ -61,7 +61,7 @@ export function DataTable<T>({ data, columns, pageSize = 8, onRowClick }: Props<
           </tbody>
         </table>
       </div>
-      <div className="flex items-center justify-between border-t border-phmc-border px-4 py-3">
+      <div className="flex flex-col gap-2 border-t border-phmc-border px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
         <p className="text-xs text-phmc-text-muted">
           Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount() || 1}
         </p>

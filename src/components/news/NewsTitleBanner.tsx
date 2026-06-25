@@ -21,7 +21,7 @@ export function NewsTitleBanner({
   return (
     <div
       className={`relative overflow-hidden rounded-lg ${
-        compact ? "min-h-[64px] min-w-[240px]" : "min-h-[80px] min-w-[280px]"
+        compact ? "min-h-[64px] min-w-0" : "min-h-[80px] min-w-0 sm:min-w-[280px]"
       }`}
     >
       {imageUrl ? (

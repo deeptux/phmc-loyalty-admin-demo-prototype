@@ -123,9 +123,12 @@ function hydrateVouchers(stored: Voucher[] | undefined): Voucher[] {
 function hydratePrivileges(stored: PrivilegeBlock[] | undefined): PrivilegeBlock[] {
   const normalized = (stored ?? []).map((item) => {
     const seed = seedPrivileges.find((s) => s.id === item.id);
+    const infographicImage = item.infographicImage?.startsWith("data:")
+      ? item.infographicImage
+      : (seed?.infographicImage ?? item.infographicImage);
     return {
       ...item,
-      infographicImage: item.infographicImage ?? seed?.infographicImage,
+      infographicImage,
     };
   });
   return mergeSeedList(normalized, seedPrivileges);

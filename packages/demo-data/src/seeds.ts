@@ -212,6 +212,102 @@ export const seedPrivileges: PrivilegeBlock[] = [
     infographicImage:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=480&h=560&fit=crop&q=80",
   },
+  {
+    id: "priv-4",
+    heading: "Campus dining rewards",
+    body: "Earn multiplier points at PHMC Café and select partner outlets on promo days.",
+    order: 4,
+    infographicImage:
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=480&h=560&fit=crop&q=80",
+  },
+  {
+    id: "priv-5",
+    heading: "Wellness screenings",
+    body: "Member-only packages for preventive diagnostics [demo copy, not a clinical offer]",
+    order: 5,
+    infographicImage:
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=480&h=560&fit=crop&q=80",
+  },
+  {
+    id: "priv-6",
+    heading: "Pharmacy partner perks",
+    body: "Discounted wellness items at the campus pharmacy for active privilege members.",
+    order: 6,
+    infographicImage:
+      "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=480&h=560&fit=crop&q=80",
+  },
+  {
+    id: "priv-7",
+    heading: "Parking & facilities",
+    body: "Validation reminders and session alerts for Las Piñas campus visits (demo).",
+    order: 7,
+    infographicImage:
+      "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=480&h=560&fit=crop&q=80",
+  },
+  {
+    id: "priv-8",
+    heading: "Family add-on preview",
+    body: "Platinum members may link one family profile [stakeholder walkthrough only]",
+    order: 8,
+    infographicImage:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=480&h=560&fit=crop&q=80",
+  },
+  {
+    id: "priv-9",
+    heading: "Event priority access",
+    body: "Gold and Platinum tiers get early registration for campus health events.",
+    order: 9,
+    infographicImage:
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=480&h=560&fit=crop&q=80",
+  },
+  {
+    id: "priv-10",
+    heading: "Points earn overview",
+    body: "Transparent rules for earning privilege points across hospital and partner channels.",
+    order: 10,
+    infographicImage:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=480&h=560&fit=crop&q=80",
+  },
+  {
+    id: "priv-11",
+    heading: "QR & digital card",
+    body: "Show or scan your card at participating lanes [aligned with mobile QR hub]",
+    order: 11,
+    infographicImage:
+      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=480&h=640&fit=crop&q=80",
+  },
+  {
+    id: "priv-12",
+    heading: "Birthday wellness perk",
+    body: "Annual birthday voucher for eligible tiers [static placeholder in demo build]",
+    order: 12,
+    infographicImage:
+      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=480&h=560&fit=crop&q=80",
+  },
+  {
+    id: "priv-13",
+    heading: "Community blood drives",
+    body: "Trust-first engagement events with optional bonus points (mock campaign).",
+    order: 13,
+    infographicImage:
+      "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=480&h=560&fit=crop&q=80",
+  },
+  {
+    id: "priv-14",
+    heading: "Silver tier essentials",
+    body: "Entry-level benefits: dining 1×, parking reminders, and campus news highlights.",
+    order: 14,
+    infographicImage:
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=480&h=560&fit=crop&q=80",
+  },
+  {
+    id: "priv-15",
+    heading: "Platinum concierge (demo)",
+    body: "Dedicated support line and screening invites [visual tier story for stakeholders]",
+    order: 15,
+    infographicImage:
+      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=480&h=560&fit=crop&q=80",
+  },
 ];
 
 export const seedPerks: Perk[] = [

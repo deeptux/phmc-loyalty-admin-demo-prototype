@@ -6,6 +6,7 @@ import { Button } from "@heroui/react";
 import type { PrivilegeBlock } from "@phmc/demo-data";
 import { BenefitActivityFeed } from "@/components/benefits/BenefitActivityFeed";
 import { PrivilegeBlockEditor } from "@/components/benefits/PrivilegeBlockEditor";
+import { PrivilegeGallery } from "@/components/benefits/PrivilegeGallery";
 import { useDemoAdminAuth } from "@/context/DemoAdminAuthContext";
 import { useDemoStore } from "@/context/DemoStoreContext";
 import { formatDateTime } from "@/lib/utils";
@@ -14,6 +15,7 @@ export default function PrivilegesPage() {
   const store = useDemoStore();
   const { user } = useDemoAdminAuth();
   const [blocks, setBlocks] = useState<PrivilegeBlock[]>(store.listPrivileges());
+  const [activeId, setActiveId] = useState<string | null>(null);
   const [dirty, setDirty] = useState(false);
 
   const update = (id: string, patch: Partial<PrivilegeBlock>) => {
@@ -23,20 +25,23 @@ export default function PrivilegesPage() {
 
   const addBlock = () => {
     setDirty(true);
+    const id = `priv-local-${Date.now()}`;
     setBlocks((prev) => [
       ...prev,
       {
-        id: `priv-local-${Date.now()}`,
+        id,
         heading: "New privilege block",
         body: "",
         order: prev.length + 1,
       },
     ]);
+    setActiveId(id);
   };
 
   const remove = (id: string) => {
     setDirty(true);
     setBlocks((prev) => prev.filter((b) => b.id !== id));
+    if (activeId === id) setActiveId(null);
   };
 
   const saveDraft = () => {
@@ -51,15 +56,15 @@ export default function PrivilegesPage() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6">
+    <div className="mx-auto w-full max-w-6xl space-y-6">
       <div>
         <Link href="/benefits" className="text-xs font-semibold text-phmc-primary hover:underline">
           ← Benefits
         </Link>
-        <h1 className="text-2xl font-extrabold">Privileges</h1>
+        <h1 className="text-xl font-extrabold sm:text-2xl">Privileges</h1>
         <p className="text-sm text-phmc-text-muted">
-          Editable infographic blocks for member benefits — heading, body copy, and portrait
-          infographic image (mobile PHMC Privileges).
+          Gallery of infographic blocks. Tap a card to edit. Surrounding tiles reflow when the
+          editor opens.
         </p>
         <p className="mt-2 text-xs text-phmc-text-muted">
           Live version: <strong>v{store.privilegesVersion}</strong>
@@ -70,27 +75,33 @@ export default function PrivilegesPage() {
         </p>
       </div>
 
-      <div className="space-y-4">
-        {blocks.map((b) => (
+      <PrivilegeGallery
+        blocks={blocks}
+        activeId={activeId}
+        onSelect={setActiveId}
+        onAdd={addBlock}
+        renderEditor={(block) => (
           <PrivilegeBlockEditor
-            key={b.id}
-            block={b}
-            onChange={(patch) => update(b.id, patch)}
-            onRemove={() => remove(b.id)}
+            block={block}
+            onChange={(patch) => update(block.id, patch)}
+            onRemove={() => remove(block.id)}
+            onClose={() => setActiveId(null)}
           />
-        ))}
-      </div>
+        )}
+      />
 
       <div className="flex flex-wrap gap-2">
-        <Button variant="ghost" onPress={addBlock}>
-          Add block
-        </Button>
         <Button variant="secondary" onPress={saveDraft}>
           Save draft
         </Button>
         <Button variant="primary" onPress={publish}>
           Publish to mobile preview
         </Button>
+        {activeId ? (
+          <Button variant="ghost" onPress={() => setActiveId(null)}>
+            Back to gallery
+          </Button>
+        ) : null}
       </div>
 
       <div>

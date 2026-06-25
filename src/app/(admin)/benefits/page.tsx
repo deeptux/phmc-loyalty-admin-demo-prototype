@@ -17,7 +17,7 @@ const links = [
   {
     href: "/benefits/privileges",
     title: "Privileges",
-    desc: "Infographic blocks — copy + portrait image upload",
+    desc: "Infographic blocks (copy + portrait image upload)",
     icon: SparklesIcon,
   },
   {

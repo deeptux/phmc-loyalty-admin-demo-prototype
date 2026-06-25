@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Button, Input, Label, TextField } from "@heroui/react";
 import type { PrivilegeBlock } from "@phmc/demo-data";
 import { publicAsset } from "@/lib/public-asset";
@@ -12,9 +12,10 @@ type Props = {
   block: PrivilegeBlock;
   onChange: (patch: Partial<PrivilegeBlock>) => void;
   onRemove: () => void;
+  onClose?: () => void;
 };
 
-export function PrivilegeBlockEditor({ block, onChange, onRemove }: Props) {
+export function PrivilegeBlockEditor({ block, onChange, onRemove, onClose }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const imageUrl = block.infographicImage ? publicAsset(block.infographicImage) : undefined;
@@ -38,7 +39,22 @@ export function PrivilegeBlockEditor({ block, onChange, onRemove }: Props) {
   };
 
   return (
-    <div className="space-y-4 rounded-xl border border-phmc-border bg-white p-4 shadow-sm">
+    <div className="space-y-4 rounded-xl border border-phmc-primary/25 bg-white p-4 shadow-md ring-1 ring-phmc-primary/10 sm:p-5">
+      <div className="flex items-start justify-between gap-3">
+        <p className="text-xs font-bold uppercase tracking-wide text-phmc-primary">Edit infographic</p>
+        {onClose ? (
+          <Button
+            type="button"
+            size="sm"
+            variant="ghost"
+            isIconOnly
+            aria-label="Close editor"
+            onPress={onClose}
+          >
+            <XMarkIcon className="h-5 w-5" />
+          </Button>
+        ) : null}
+      </div>
       <TextField>
         <Label>Heading</Label>
         <Input
@@ -47,7 +63,7 @@ export function PrivilegeBlockEditor({ block, onChange, onRemove }: Props) {
         />
       </TextField>
 
-      <div className="grid gap-4 md:grid-cols-[1fr_minmax(200px,280px)]">
+      <div className="grid gap-4 sm:grid-cols-[1fr_minmax(160px,280px)]">
         <div>
           <Label className="mb-1 block">Body</Label>
           <textarea
@@ -110,9 +126,16 @@ export function PrivilegeBlockEditor({ block, onChange, onRemove }: Props) {
         </div>
       </div>
 
-      <Button variant="danger-soft" size="sm" onPress={onRemove}>
-        Remove
-      </Button>
+      <div className="flex flex-wrap gap-2">
+        {onClose ? (
+          <Button type="button" variant="secondary" size="sm" onPress={onClose}>
+            Done
+          </Button>
+        ) : null}
+        <Button variant="danger-soft" size="sm" onPress={onRemove}>
+          Remove block
+        </Button>
+      </div>
     </div>
   );
 }

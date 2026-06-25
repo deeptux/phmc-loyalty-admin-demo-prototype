@@ -6,21 +6,33 @@ import {
   BellIcon,
   MagnifyingGlassIcon,
   ChevronDownIcon,
+  Bars3Icon,
 } from "@heroicons/react/24/outline";
 import { Button, Dropdown, Input, ListBox, Avatar } from "@heroui/react";
 import { seedNotifications } from "@phmc/demo-data";
 import { useDemoAdminAuth } from "@/context/DemoAdminAuthContext";
+import { useSidebar } from "@/context/SidebarContext";
 
 export function HeaderBar() {
   const router = useRouter();
   const { user, logout } = useDemoAdminAuth();
+  const { toggleMobile } = useSidebar();
   const [query, setQuery] = useState("");
 
   if (!user) return null;
 
   return (
-    <header className="flex items-center gap-4 border-b border-phmc-border bg-white px-6 py-3 shadow-sm">
-      <div className="relative min-w-0 max-w-xl flex-1">
+    <header className="flex flex-wrap items-center gap-2 border-b border-phmc-border bg-white px-3 py-2 shadow-sm sm:gap-4 sm:px-4 sm:py-3 md:px-6">
+      <Button
+        variant="ghost"
+        isIconOnly
+        className="lg:hidden"
+        aria-label="Open navigation menu"
+        onPress={toggleMobile}
+      >
+        <Bars3Icon className="h-6 w-6 text-phmc-primary" />
+      </Button>
+      <div className="relative min-w-0 flex-1 basis-[min(100%,280px)] sm:max-w-xl">
         <MagnifyingGlassIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-phmc-text-muted" />
         <Input
           aria-label="Global search"

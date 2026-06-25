@@ -27,7 +27,9 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           <SidebarNav />
           <div id="admin-workspace" className="relative flex min-w-0 flex-1 flex-col">
             <HeaderBar />
-            <main className="flex-1 overflow-auto bg-phmc-surface-muted p-6">{children}</main>
+            <main className="flex-1 overflow-auto bg-phmc-surface-muted p-3 sm:p-4 md:p-6">
+              {children}
+            </main>
           </div>
         </div>
       </div>
