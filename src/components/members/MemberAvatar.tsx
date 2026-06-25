@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import type { LoyaltyMember } from "@phmc/demo-data";
+import { resolveMemberAvatarUrl } from "@/lib/member-avatars";
 
 type Props = {
-  member: Pick<LoyaltyMember, "firstName" | "lastName" | "avatarColor">;
+  member: Pick<LoyaltyMember, "firstName" | "lastName" | "avatarColor" | "avatarUrl">;
   size?: "sm" | "md" | "lg" | "xl";
   className?: string;
 };
@@ -20,6 +22,21 @@ export function memberInitials(member: Pick<LoyaltyMember, "firstName" | "lastNa
 }
 
 export function MemberAvatar({ member, size = "md", className = "" }: Props) {
+  const [imgFailed, setImgFailed] = useState(false);
+  const photoUrl = resolveMemberAvatarUrl(member.avatarUrl);
+  const showPhoto = Boolean(photoUrl) && !imgFailed;
+
+  if (showPhoto) {
+    return (
+      <img
+        src={photoUrl}
+        alt=""
+        className={`inline-block shrink-0 rounded-full object-cover shadow-sm ring-2 ring-white ${sizes[size]} ${className}`}
+        onError={() => setImgFailed(true)}
+      />
+    );
+  }
+
   return (
     <span
       className={`inline-flex shrink-0 items-center justify-center rounded-full font-bold text-white shadow-sm ring-2 ring-white ${sizes[size]} ${className}`}

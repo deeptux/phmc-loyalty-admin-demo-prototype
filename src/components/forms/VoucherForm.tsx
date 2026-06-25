@@ -12,8 +12,9 @@ type Props = {
   onCancel: () => void;
 };
 
+import { VOUCHER_STATUSES } from "@/components/StatusChips";
+
 const types: VoucherType[] = ["Care", "Partner", "Discount", "Freebie"];
-const statuses: VoucherStatus[] = ["draft", "scheduled", "active", "paused", "expired"];
 
 export function VoucherForm({ initial, onSubmit, onCancel }: Props) {
   const [code, setCode] = useState(initial?.code ?? "");
@@ -64,7 +65,7 @@ export function VoucherForm({ initial, onSubmit, onCancel }: Props) {
             value={status}
             onChange={(e) => setStatus(e.target.value as VoucherStatus)}
           >
-            {statuses.map((s) => (
+            {VOUCHER_STATUSES.map((s) => (
               <option key={s} value={s}>
                 {s}
               </option>

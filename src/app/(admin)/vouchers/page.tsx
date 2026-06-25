@@ -6,10 +6,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Button, Chip } from "@heroui/react";
 import type { Voucher, VoucherStatus } from "@phmc/demo-data";
 import { DataTable } from "@/components/tables/DataTable";
-import { VoucherStatusChip } from "@/components/StatusChips";
+import { VoucherStatusChip, VOUCHER_STATUSES } from "@/components/StatusChips";
 import { useDemoStore } from "@/context/DemoStoreContext";
-
-const statuses: VoucherStatus[] = ["draft", "scheduled", "active", "paused", "expired"];
 
 export default function VouchersListPage() {
   const store = useDemoStore();
@@ -78,15 +76,19 @@ export default function VouchersListPage() {
         >
           All
         </Chip>
-        {statuses.map((s) => (
-          <Chip
+        {VOUCHER_STATUSES.map((s) => (
+          <button
             key={s}
-            className="cursor-pointer"
-            color={filter === s ? "accent" : "default"}
+            type="button"
             onClick={() => setFilter(s)}
+            className={`rounded-full px-3 py-1 text-xs font-semibold capitalize transition ${
+              filter === s
+                ? "bg-phmc-primary text-white shadow-sm"
+                : "bg-phmc-surface-muted text-phmc-text-muted hover:bg-phmc-border/60"
+            }`}
           >
             {s}
-          </Chip>
+          </button>
         ))}
       </div>
 

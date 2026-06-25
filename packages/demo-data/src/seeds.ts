@@ -40,6 +40,8 @@ export const seedNews: NewsItem[] = [
     publishAt: "2026-05-01T08:00:00.000Z",
     pinned: true,
     updatedAt: "2026-05-10T10:00:00.000Z",
+    bannerImage: "/brand/wellness.jpg",
+    bannerTint: "rgba(234, 179, 8, 0.78)",
   },
   {
     id: "news-2",
@@ -50,6 +52,8 @@ export const seedNews: NewsItem[] = [
     publishAt: "2026-05-08T08:00:00.000Z",
     pinned: false,
     updatedAt: "2026-05-09T14:00:00.000Z",
+    bannerImage: "/brand/diagnostics.jpg",
+    bannerTint: "rgba(32, 139, 125, 0.82)",
   },
   {
     id: "news-3",
@@ -60,6 +64,8 @@ export const seedNews: NewsItem[] = [
     publishAt: "2026-06-15T08:00:00.000Z",
     pinned: false,
     updatedAt: "2026-05-12T09:00:00.000Z",
+    bannerImage: "/brand/campus-dining.jpg",
+    bannerTint: "rgba(219, 39, 119, 0.78)",
   },
   {
     id: "news-4",
@@ -69,6 +75,8 @@ export const seedNews: NewsItem[] = [
     status: "draft",
     pinned: false,
     updatedAt: "2026-05-14T11:00:00.000Z",
+    bannerImage: "/brand/hospital-services.jpg",
+    bannerTint: "rgba(0, 104, 55, 0.82)",
   },
   {
     id: "news-5",
@@ -79,6 +87,8 @@ export const seedNews: NewsItem[] = [
     publishAt: "2026-04-20T08:00:00.000Z",
     pinned: false,
     updatedAt: "2026-04-21T08:00:00.000Z",
+    bannerImage: "/brand/more.jpg",
+    bannerTint: "rgba(220, 38, 38, 0.78)",
   },
 ];
 
@@ -91,7 +101,7 @@ export const seedVouchers: Voucher[] = [
     status: "active",
     startsAt: "2026-05-01",
     endsAt: "2026-05-31",
-    description: "Diagnostics package discount - demo voucher.",
+    description: "Diagnostics package discount — live offer, not yet issued to members.",
     updatedAt: "2026-05-01T08:00:00.000Z",
   },
   {
@@ -99,10 +109,10 @@ export const seedVouchers: Voucher[] = [
     code: "CAMPUSCAFE10",
     title: "Campus café partner perk",
     type: "Partner",
-    status: "active",
+    status: "issued",
     startsAt: "2026-04-01",
     endsAt: "2026-12-31",
-    description: "Partner dining perk for privilege members.",
+    description: "Issued to Gold members — awaiting redemption at campus café.",
     updatedAt: "2026-04-15T08:00:00.000Z",
   },
   {
@@ -148,6 +158,28 @@ export const seedVouchers: Voucher[] = [
     endsAt: "2026-08-31",
     description: "Unpublished draft voucher.",
     updatedAt: "2026-05-18T08:00:00.000Z",
+  },
+  {
+    id: "v-7",
+    code: "PARKVALID24",
+    title: "Parking validation perk",
+    type: "Partner",
+    status: "redeemed",
+    startsAt: "2026-02-01",
+    endsAt: "2026-06-30",
+    description: "Redeemed at Las Piñas campus parking — demo ledger entry.",
+    updatedAt: "2026-05-20T14:00:00.000Z",
+  },
+  {
+    id: "v-8",
+    code: "LABPANEL50",
+    title: "Lab panel discount",
+    type: "Care",
+    status: "redeemed",
+    startsAt: "2026-03-01",
+    endsAt: "2026-08-31",
+    description: "Redeemed for diagnostics package — member walkthrough sample.",
+    updatedAt: "2026-05-22T09:30:00.000Z",
   },
 ];
 
@@ -250,7 +282,16 @@ export const seedNotifications = [
   { id: "n4", title: "Member tier upgrade batch (mock)", time: "2d ago" },
 ];
 
-export const seedMembers: LoyaltyMember[] = [
+/** Stable demo portraits (pravatar.cc catalog ids) */
+const MEMBER_PORTRAIT_IDS = [
+  5, 12, 9, 32, 45, 3, 27, 68, 11, 44, 23, 16, 38, 52, 7, 61, 19, 33, 48, 14,
+];
+
+export function seedMemberAvatarUrl(portraitId: number): string {
+  return `https://i.pravatar.cc/150?img=${portraitId}`;
+}
+
+const seedMembersBase: LoyaltyMember[] = [
   {
     id: "m-1",
     memberNumber: "PHMC-2024-00821",
@@ -615,3 +656,8 @@ export const seedMembers: LoyaltyMember[] = [
     vouchersRedeemed: 0,
   },
 ];
+
+export const seedMembers: LoyaltyMember[] = seedMembersBase.map((member, index) => ({
+  ...member,
+  avatarUrl: seedMemberAvatarUrl(MEMBER_PORTRAIT_IDS[index] ?? index + 1),
+}));

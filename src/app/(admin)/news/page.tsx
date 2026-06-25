@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@heroui/react";
 import type { NewsItem } from "@phmc/demo-data";
+import { NewsTitleBanner } from "@/components/news/NewsTitleBanner";
 import { DataTable } from "@/components/tables/DataTable";
 import { ConfirmModal } from "@/components/ConfirmModal";
 import { NewsStatusChip } from "@/components/StatusChips";
@@ -21,12 +22,7 @@ export default function NewsListPage() {
       {
         header: "Title",
         accessorKey: "title",
-        cell: ({ row }) => (
-          <div>
-            <p className="font-semibold text-phmc-text">{row.original.title}</p>
-            <p className="text-xs text-phmc-text-muted">{row.original.summary}</p>
-          </div>
-        ),
+        cell: ({ row }) => <NewsTitleBanner {...row.original} compact />,
       },
       {
         header: "Status",

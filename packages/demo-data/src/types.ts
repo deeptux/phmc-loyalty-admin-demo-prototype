@@ -9,9 +9,20 @@ export type NewsItem = {
   publishAt?: string;
   pinned: boolean;
   updatedAt: string;
+  /** Public path (/brand/...) or data URL from demo upload */
+  bannerImage?: string;
+  /** CSS color for translucent overlay (rgba) */
+  bannerTint?: string;
 };
 
-export type VoucherStatus = "draft" | "scheduled" | "active" | "paused" | "expired";
+export type VoucherStatus =
+  | "draft"
+  | "scheduled"
+  | "active"
+  | "issued"
+  | "redeemed"
+  | "paused"
+  | "expired";
 export type VoucherType = "Care" | "Partner" | "Discount" | "Freebie";
 
 export type Voucher = {
@@ -75,6 +86,8 @@ export type LoyaltyMember = {
   joinedAt: string;
   lastActiveAt: string;
   avatarColor: string;
+  /** Public path, https URL, or data URL from demo upload */
+  avatarUrl?: string;
   campus: string;
   cardsLinked: number;
   vouchersRedeemed: number;

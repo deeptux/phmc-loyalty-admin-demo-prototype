@@ -145,6 +145,7 @@ export default function MembersPage() {
         pointsLifetime: data.pointsLifetime ?? 0,
         joinedAt: data.joinedAt!,
         avatarColor: data.avatarColor!,
+        avatarUrl: data.avatarUrl,
         campus: data.campus!,
         cardsLinked: data.cardsLinked ?? 0,
         vouchersRedeemed: data.vouchersRedeemed ?? 0,

@@ -67,12 +67,55 @@ function reducer(state: StoreState, action: Action): StoreState {
   }
 }
 
+function hydrateVouchers(stored: Voucher[] | undefined): Voucher[] {
+  const storedList = stored ?? [];
+  const storedById = new Map(storedList.map((item) => [item.id, item]));
+  const seedIds = new Set(seedVouchers.map((item) => item.id));
+  const merged = seedVouchers.map((seed) => {
+    const existing = storedById.get(seed.id);
+    return existing ? { ...existing, status: seed.status } : seed;
+  });
+  for (const item of storedList) {
+    if (!seedIds.has(item.id)) merged.push(item);
+  }
+  return merged;
+}
+
+function hydrateMembers(stored: LoyaltyMember[] | undefined): LoyaltyMember[] {
+  const storedList = stored ?? [];
+  const storedById = new Map(storedList.map((item) => [item.id, item]));
+  const seedIds = new Set(seedMembers.map((item) => item.id));
+  const merged = seedMembers.map((seed) => {
+    const existing = storedById.get(seed.id);
+    return existing
+      ? { ...existing, avatarUrl: existing.avatarUrl ?? seed.avatarUrl }
+      : seed;
+  });
+  for (const item of storedList) {
+    if (!seedIds.has(item.id)) merged.push(item);
+  }
+  return merged;
+}
+
 function loadState(): StoreState {
   if (typeof window === "undefined") return initialState;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return initialState;
-    return { ...initialState, ...JSON.parse(raw) } as StoreState;
+    const parsed = JSON.parse(raw) as Partial<StoreState>;
+    const seedById = new Map(seedNews.map((item) => [item.id, item]));
+    const news = (parsed.news ?? initialState.news).map((item) => {
+      const seed = seedById.get(item.id);
+      if (!seed) return item;
+      return {
+        ...item,
+        bannerImage: item.bannerImage ?? seed.bannerImage,
+        bannerTint: item.bannerTint ?? seed.bannerTint,
+      };
+    });
+    const vouchers = hydrateVouchers(parsed.vouchers);
+    const members = hydrateMembers(parsed.members);
+    return { ...initialState, ...parsed, news, vouchers, members };
   } catch {
     return initialState;
   }

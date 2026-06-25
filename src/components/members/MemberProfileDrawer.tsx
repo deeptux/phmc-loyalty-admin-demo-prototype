@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Button, Input, Label, TextField } from "@heroui/react";
 import type { LoyaltyMember, MemberStatus, MemberTier } from "@phmc/demo-data";
 import { MemberAvatar } from "@/components/members/MemberAvatar";
 import { MemberStatusChip, MemberTierChip } from "@/components/StatusChips";
+import { MAX_MEMBER_AVATAR_BYTES } from "@/lib/member-avatars";
 import { formatDate, formatDateTime } from "@/lib/utils";
 
 const WORKSPACE_ID = "admin-workspace";
@@ -78,6 +79,9 @@ export function MemberProfileDrawer({
   const [closing, setClosing] = useState(false);
   const [editing, setEditing] = useState(mode === "edit" || mode === "create");
   const [form, setForm] = useState<FormState>(emptyForm());
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>();
+  const [avatarUploadError, setAvatarUploadError] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setPortalEl(document.getElementById(WORKSPACE_ID));
@@ -93,9 +97,12 @@ export function MemberProfileDrawer({
     setEditing(mode === "edit" || mode === "create");
     if (member && mode !== "create") {
       setForm(memberToForm(member));
+      setAvatarUrl(member.avatarUrl);
     } else if (mode === "create") {
       setForm(emptyForm());
+      setAvatarUrl(undefined);
     }
+    setAvatarUploadError(null);
     const frame = requestAnimationFrame(() => {
       requestAnimationFrame(() => setVisible(true));
     });
@@ -122,6 +129,31 @@ export function MemberProfileDrawer({
 
   const isCreate = mode === "create";
   const displayMember = member;
+  const previewMember: Pick<LoyaltyMember, "firstName" | "lastName" | "avatarColor" | "avatarUrl"> =
+    {
+      firstName: form.firstName || (isCreate ? "New" : member?.firstName ?? ""),
+      lastName: form.lastName || (isCreate ? "Member" : member?.lastName ?? ""),
+      avatarColor: member?.avatarColor ?? AVATAR_COLORS[0],
+      avatarUrl,
+    };
+
+  const handleAvatarFile = (file: File | undefined) => {
+    if (!file) return;
+    setAvatarUploadError(null);
+    if (!file.type.startsWith("image/")) {
+      setAvatarUploadError("Please choose an image file (JPG, PNG, or WebP).");
+      return;
+    }
+    if (file.size > MAX_MEMBER_AVATAR_BYTES) {
+      setAvatarUploadError("Image must be under 300 KB for this demo store.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") setAvatarUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleSave = () => {
     const pointsBalance = Number(form.pointsBalance) || 0;
@@ -139,6 +171,7 @@ export function MemberProfileDrawer({
       avatarColor: isCreate
         ? AVATAR_COLORS[Math.floor(Math.random() * AVATAR_COLORS.length)]
         : member!.avatarColor,
+      avatarUrl,
       cardsLinked: isCreate ? 0 : member!.cardsLinked,
       vouchersRedeemed: isCreate ? 0 : member!.vouchersRedeemed,
       notes: form.notes.trim() || undefined,
@@ -183,8 +216,8 @@ export function MemberProfileDrawer({
 
           <header className="border-b border-phmc-border bg-phmc-surface-muted/50 px-5 py-4">
             <div className="flex w-full items-start gap-4">
-              {displayMember && !isCreate ? (
-                <MemberAvatar member={displayMember} size="xl" />
+              {editing || (displayMember && !isCreate) ? (
+                <MemberAvatar member={editing ? previewMember : displayMember!} size="xl" />
               ) : (
                 <span className="flex h-20 w-20 items-center justify-center rounded-full bg-phmc-primary/15 text-2xl font-bold text-phmc-primary">
                   +
@@ -215,7 +248,50 @@ export function MemberProfileDrawer({
 
           <div className="flex-1 overflow-y-auto px-5 py-4">
             {editing ? (
-              <div className="space-y-4">
+              <div className="space-y-4 ml-4">
+                <div className="flex flex-wrap items-center gap-3 rounded-xl border border-phmc-border bg-phmc-surface-muted/40 p-3">
+                  <MemberAvatar member={previewMember} size="lg" />
+                  <div className="min-w-0 flex-1">
+                    <Label className="mb-1 block text-xs">Profile photo</Label>
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="secondary"
+                        onPress={() => fileRef.current?.click()}
+                      >
+                        Upload photo
+                      </Button>
+                      {avatarUrl ? (
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="ghost"
+                          onPress={() => {
+                            setAvatarUrl(undefined);
+                            setAvatarUploadError(null);
+                          }}
+                        >
+                          Remove
+                        </Button>
+                      ) : null}
+                    </div>
+                    {avatarUploadError ? (
+                      <p className="mt-1 text-xs text-red-600">{avatarUploadError}</p>
+                    ) : (
+                      <p className="mt-1 text-xs text-phmc-text-muted">
+                        Without a photo, initials on a color badge are shown.
+                      </p>
+                    )}
+                  </div>
+                  <input
+                    ref={fileRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => handleAvatarFile(e.target.files?.[0])}
+                  />
+                </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <TextField>
                     <Label>First name</Label>
@@ -305,7 +381,7 @@ export function MemberProfileDrawer({
                 </TextField>
               </div>
             ) : displayMember ? (
-              <div className="space-y-6">
+              <div className="space-y-6 ml-4">
                 <section>
                   <h3 className="text-xs font-bold uppercase tracking-wide text-phmc-text-muted">
                     Contact
@@ -388,7 +464,7 @@ export function MemberProfileDrawer({
             ) : null}
           </div>
 
-          <footer className="flex flex-wrap gap-2 border-t border-phmc-border px-5 py-4">
+          <footer className="flex flex-wrap gap-2 border-t border-phmc-border px-5 py-4 pb-15">
             {editing ? (
               <>
                 <Button variant="ghost" onPress={handleClose}>
